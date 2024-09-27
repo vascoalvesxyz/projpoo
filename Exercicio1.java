@@ -1,29 +1,14 @@
-// Considere um centro de saúde onde trabalham medicos de diferentes especialidades. A componente fixa do ordenado dos medicos é calculada a partir do salário base da especialidade acrescido de 4% por cada 5 de anos de serviço. A componente variável do ordenado depende do número de horas de trabalho extra. Pretende desenvolver-se uma aplicação para gerir o centro de saúde considerando um número indeterminado de medicos e de especialidades. A aplicação deverá calcular os ordenados a pagar por médico e por especialidade.
-//
-// String[] especialidades = { 
-     //nome/salário base/custo da hora extra 
-     //"Radiologia/2030/50",  
-     //"Oftalmologia/2500/70", 
-     //"Pediatria/2700/75" 
-// }; 
-//
-//String[] medicos = { 
-//nome/especialidade/anos de serviço/horas extra 
-//"Vasco Santana/radiologia/15/10", 
-//"Laura Alves/oftalmologia/5/7", 
-//"António Silva/oftalmologia/12/5" 
-//}; 
-//
-//Resultado: 
-//Vasco Santana: 2783.5€ 
-//Laura Alves: 3090.0€ 
-//António Silva: 3054.0€ 
-//
-//Radiologia: 2783.5€ 
-//Oftalmologia: 6144.0€
+// Considere um centro de saúde onde trabalham medicos de diferentes especialidades.
+// A componente fixa do ordenado dos medicos é calculada a partir do salário base da especialidade acrescido de 4% por cada 5 de anos de serviço.
+// A componente variável do ordenado depende do número de horas de trabalho extra.
+// Pretende desenvolver-se uma aplicação para gerir o centro de saúde considerando um número indeterminado de medicos e de especialidades.
+// A aplicação deverá calcular os ordenados a pagar por médico e por especialidade.
+
+// IMPORTANTE: SO PODE HAVE 1 FICHEIRO CHAMADO 'Exercicio1' !!!
+
 import java.math.*;
 
-public class Main {
+public class Exercicio1 {
     //private static print_especialidadedes() {}; 
     //private static print_medicos() {}; 
     
@@ -77,6 +62,16 @@ public class Main {
             double ordenado = medicoOrdenado(bases[0], bases[1], Integer.parseInt(linha[2]), Integer.parseInt(linha[3]));
             System.out.printf("%s: %.2f\n", linha[0], ordenado );
         }
+
+        //Verifica o resultado: 
+        //Vasco Santana: 2783.5€ 
+        //Laura Alves: 3090.0€ 
+        //António Silva: 3054.0€ 
+
+
+
+        //Radiologia: 2783.5€ 
+        //Oftalmologia: 6144.0€
 
     }
 }
