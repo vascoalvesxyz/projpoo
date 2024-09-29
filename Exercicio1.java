@@ -44,28 +44,21 @@ public class Exercicio1 {
     };
 
 
-    // Inicializa uma matriz de Objectos <String, Double> 
-    private static void rendimentoEspecialidadeInit(Object[][] arr, String[] tabela_especialidades ) {
+    // Atualiza o rendimento total de todos os medico de uma dada especialidade à sua respectiva coluna 
+    // ao somar o valor rendimento
+    private static void rendimentoEspecialidadeUpdate(String[] especialidades, String especialidade, double rendimento ) {
         int i;
-        String especialidade;
-        for (i = 0; i < arr.length; i++) {
-            especialidade = (tabela_especialidades[i].split("/"))[0];
-            arr[i][0] = new String(especialidade);  
-            arr[i][1] = (double) 0.0;
-        } 
-    }
+        String[] valores;
+        for (i = 0; i < especialidades.length; i++) {
+             valores = especialidades[i].split("/");
+             if (valores.length < 4) {
+                especialidades[i] = especialidades[i] + "/" + rendimento ;
+                break;
+            }
 
-    private static void rendimentoEspecialidadeUpdate(Object[][] arr, String especialidade, double rendimento ) {
-        int i;
-        for (i = 0; i < arr.length; i++) {
-            //if (arr[i] ==  null || arr[i][0] == null) {
-            //    arr[i][0] = new String(especialidade);  
-            //    arr[i][1] = (double) rendimento;
-            //    break;
-            //}
-
-            if (((String) arr[i][0]).equalsIgnoreCase(especialidade))  {
-                arr[i][1] = (double) arr[i][1] + (double) rendimento;
+            if (valores[0].equalsIgnoreCase(especialidade))  {
+                double rendimento_novo = Double.parseDouble(valores[3]) + rendimento;
+                especialidades[i] = valores[0] + "/" + valores[1] + "/" + valores[2] + "/" + rendimento_novo;
                 break;
             }
         } 
@@ -86,9 +79,6 @@ public class Exercicio1 {
             "António Silva/oftalmologia/12/5" 
         };
 
-        Object[][] rendimento_por_especialidade = new Object[especialidades.length][2]; 
-        rendimentoEspecialidadeInit(rendimento_por_especialidade, especialidades);
-
         for (String medico : medicos) {
             String[] linha = medico.split("/");
             String nome = linha[0];
@@ -101,14 +91,17 @@ public class Exercicio1 {
             int valor_horas_extra = rendimento_especialidade[1];
 
             double ordenado = calcularOrdenado(rendimento_base, anos_servico, valor_horas_extra, horas_extra);
-            rendimentoEspecialidadeUpdate(rendimento_por_especialidade, especialidade, ordenado );
+            rendimentoEspecialidadeUpdate(especialidades, especialidade, ordenado );
 
             System.out.printf("%s: %.1f€\n", nome, ordenado);
         }
 
         System.out.println();
-        for (int i = 0; i < rendimento_por_especialidade.length; i++)
-            System.out.printf("%s: %.1f€\n", (String) rendimento_por_especialidade[i][0], (Double) rendimento_por_especialidade[i][1]);
+        for (int i = 0; i < especialidades.length; i++) {
+            String[] valores = especialidades[i].split("/");
+            if (valores.length > 3)
+                System.out.printf("%s: %.1f€\n", valores[0],  Double.parseDouble(valores[3]) );
+        }
 
         //Verifica o resultado: 
         //Vasco Santana: 2783.5€ 
