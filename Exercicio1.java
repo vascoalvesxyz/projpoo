@@ -5,6 +5,7 @@
 // A aplicação deverá calcular os ordenados a pagar por médico e por especialidade.
 
 // IMPORTANTE: SO PODE HAVE 1 FICHEIRO CHAMADO 'Exercicio1' !!!
+// IMPORTANTE 2: NAO PODES USAR ARRAYS TIPO HASHMAPS, Lists, Dicts, etc. YKWIM
 
 import java.math.*;
 
@@ -42,6 +43,34 @@ public class Exercicio1 {
         return rendimento_atual + valor_horas_extra*horas_extra;
     };
 
+
+    // Inicializa uma matriz de Objectos <String, Double> 
+    private static void rendimentoEspecialidadeInit(Object[][] arr, String[] tabela_especialidades ) {
+        int i;
+        String especialidade;
+        for (i = 0; i < arr.length; i++) {
+            especialidade = (tabela_especialidades[i].split("/"))[0];
+            arr[i][0] = new String(especialidade);  
+            arr[i][1] = (double) 0.0;
+        } 
+    }
+
+    private static void rendimentoEspecialidadeUpdate(Object[][] arr, String especialidade, double rendimento ) {
+        int i;
+        for (i = 0; i < arr.length; i++) {
+            //if (arr[i] ==  null || arr[i][0] == null) {
+            //    arr[i][0] = new String(especialidade);  
+            //    arr[i][1] = (double) rendimento;
+            //    break;
+            //}
+
+            if (((String) arr[i][0]).equalsIgnoreCase(especialidade))  {
+                arr[i][1] = (double) arr[i][1] + (double) rendimento;
+                break;
+            }
+        } 
+    }
+
     public static void main(String[] args) {
         String[] especialidades = { 
             //nome/salário base/custo da hora extra 
@@ -57,6 +86,9 @@ public class Exercicio1 {
             "António Silva/oftalmologia/12/5" 
         };
 
+        Object[][] rendimento_por_especialidade = new Object[especialidades.length][2]; 
+        rendimentoEspecialidadeInit(rendimento_por_especialidade, especialidades);
+
         for (String medico : medicos) {
             String[] linha = medico.split("/");
             String nome = linha[0];
@@ -69,15 +101,19 @@ public class Exercicio1 {
             int valor_horas_extra = rendimento_especialidade[1];
 
             double ordenado = calcularOrdenado(rendimento_base, anos_servico, valor_horas_extra, horas_extra);
+            rendimentoEspecialidadeUpdate(rendimento_por_especialidade, especialidade, ordenado );
+
             System.out.printf("%s: %.1f€\n", nome, ordenado);
         }
+
+        System.out.println();
+        for (int i = 0; i < rendimento_por_especialidade.length; i++)
+            System.out.printf("%s: %.1f€\n", (String) rendimento_por_especialidade[i][0], (Double) rendimento_por_especialidade[i][1]);
 
         //Verifica o resultado: 
         //Vasco Santana: 2783.5€ 
         //Laura Alves: 3090.0€ 
         //António Silva: 3054.0€ 
-
-
 
         //Radiologia: 2783.5€ 
         //Oftalmologia: 6144.0€
