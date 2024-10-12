@@ -12,13 +12,13 @@ public class Exercicio1 {
         for (String s : especialidades) {
             String[] linha = s.split("/");
             String nome = linha[0];
-            int salario_base = Integer.parseInt(linha[1]);
-            int custo_hora_extra = Integer.parseInt(linha[2]);
+            int salarioBase = Integer.parseInt(linha[1]);
+            int custoHoraExtra = Integer.parseInt(linha[2]);
 
             // Verifica se a especialidade atual corresponde à procurada (ignorando maiúsculas/minúsculas)
             if (nome.equalsIgnoreCase(especialidade)) {
-                resultado[0] = salario_base;
-                resultado[1] = custo_hora_extra;
+                resultado[0] = salarioBase;
+                resultado[1] = custoHoraExtra;
                 break; // Sai do loop assim que encontra a especialidade
             }
         }
@@ -29,21 +29,21 @@ public class Exercicio1 {
     /**
      * Calcula o ordenado total com base no salário base, anos de serviço e horas extra.
      * @param rendimentoBase Salário base.
-     * @param anos_servico Anos de serviço.
+     * @param anosServico Anos de serviço.
      * @param valorHorasExtra Custo por hora extra.
      * @param horasExtra Número de horas extra.
      * @return O ordenado total calculado.
      */
-    private static double calcularOrdenado(int rendimentoBase, int anos_servico, int valorHorasExtra, int horasExtra) {
-        double rendimento_atual = rendimentoBase;
+    private static double calcularOrdenado(int rendimentoBase, int anosServico, int valorHorasExtra, int horasExtra) {
+        double rendimentoAtual = rendimentoBase;
 
         // Aplica um aumento de 4% por cada 5 anos de serviço
-        for (int i = 0; i < anos_servico / 5; i++) {
-            rendimento_atual *= 1.04;
+        for (int i = 0; i < anosServico / 5; i++) {
+            rendimentoAtual *= 1.04;
         }
 
         // Adiciona o valor das horas extra ao rendimento base atualizado
-        return rendimento_atual + valorHorasExtra * horasExtra;
+        return rendimentoAtual + valorHorasExtra * horasExtra;
     }
 
     /**
@@ -72,10 +72,10 @@ public class Exercicio1 {
         int indexEspecialidade = obterIndexEspecialidade(custosEspecialidades, especialidade);
         if (indexEspecialidade != -1) {
             // Extrai o custo atual, adiciona o novo custo e atualiza o array
-            double rendimento_novo = Double.parseDouble(custosEspecialidades[indexEspecialidade].split("/")[1]) + custo;
+            double rendimentoNovo = Double.parseDouble(custosEspecialidades[indexEspecialidade].split("/")[1]) + custo;
             // Capitaliza a primeira letra da especialidade
-            String especialidade_capitalizado = especialidade.substring(0, 1).toUpperCase() + especialidade.substring(1);
-            custosEspecialidades[indexEspecialidade] = especialidade_capitalizado + "/" + rendimento_novo;
+            String especialidadeCapitalizado = especialidade.substring(0, 1).toUpperCase() + especialidade.substring(1);
+            custosEspecialidades[indexEspecialidade] = especialidadeCapitalizado + "/" + rendimentoNovo;
         }
     }
 
@@ -97,9 +97,9 @@ public class Exercicio1 {
     };
 
     // imprime a especialidade
-    private static void printEspecialidade(String nome_especialidade, double custo) {
+    private static void printEspecialidade(String nomeEspecialidade, double custo) {
         if (custo > 0) {
-            System.out.printf("%s: %.1f€\n", nome_especialidade, custo);
+            System.out.printf("%s: %.1f€\n", nomeEspecialidade, custo);
         }
     };
 
@@ -128,23 +128,22 @@ public class Exercicio1 {
             String[] linha = medico.split("/");
             String nome = linha[0];
             String especialidade = linha[1];
-            int anos_servico = Integer.parseInt(linha[2]);
+            int anosServico = Integer.parseInt(linha[2]);
             int horasExtra = Integer.parseInt(linha[3]);
 
             // Obtém o rendimento base e o valor das horas extra para a especialidade
-            int[] rendimento_especialidade = obterRendimentoEspecialidade(especialidades, especialidade);
-            int rendimentoBase = rendimento_especialidade[0];
-            int valorHorasExtra = rendimento_especialidade[1];
+            int[] rendimentoEspecialidade = obterRendimentoEspecialidade(especialidades, especialidade);
+            int rendimentoBase = rendimentoEspecialidade[0];
+            int valorHorasExtra = rendimentoEspecialidade[1];
 
             // Calcula o ordenado total do médico
-            double ordenado = calcularOrdenado(rendimentoBase, anos_servico, valorHorasExtra, horasExtra);
+            double ordenado = calcularOrdenado(rendimentoBase, anosServico, valorHorasExtra, horasExtra);
 
             // Imprime o ordenado do médico
             printOrdenado(nome, ordenado);
 
             // Adiciona o ordenado ao custo total da especialidade
             adicionarCustoEspecialidade(custosEspecialidades, especialidade, ordenado);
-
         }
 
         System.out.println();
@@ -152,11 +151,11 @@ public class Exercicio1 {
         // Mostra os custos totais por especialidade
         for (String custoEspecialidade : custosEspecialidades) {
             String[] valores = custoEspecialidade.split("/");
-            String nome_especialidade = valores[0];
+            String nomeEspecialidade = valores[0];
             double custo = Double.parseDouble(valores[1]);
 
             // Só imprime as especialidades com custo maior que zero
-            printEspecialidade(nome_especialidade, custo);
+            printEspecialidade(nomeEspecialidade, custo);
         }
     }
 }
