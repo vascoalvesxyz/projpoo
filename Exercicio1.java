@@ -91,10 +91,17 @@ public class Exercicio1 {
         }
     }
 
-        // imprime o ordenado e retorno-o como valor
-        private static void printOrdenado(String nome, double ordenado) {
-                System.out.printf("%s: %.1f€\n", nome, ordenado );
-        };
+    // imprime o ordenado
+    private static void printOrdenado(String nome, double ordenado) {
+        System.out.printf("%s: %.1f€\n", nome, ordenado );
+    };
+
+    // imprime a especialidade
+    private static void printEspecialidade(String nome_especialidade, double custo) {
+        if (custo > 0) {
+            System.out.printf("%s: %.1f€\n", nome_especialidade, custo);
+        }
+    };
 
     public static void main(String[] args) {
         // Define as especialidades com os seus salários base e custos de horas extra
@@ -149,9 +156,7 @@ public class Exercicio1 {
             double custo = Double.parseDouble(valores[1]);
 
             // Só imprime as especialidades com custo maior que zero
-            if (custo > 0) {
-                System.out.printf("%s: %.1f€\n", nome_especialidade, custo);
-            }
+            printEspecialidade(nome_especialidade, custo);
         }
     }
 }
